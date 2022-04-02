@@ -1,12 +1,23 @@
 <template>
-  <div class="container">
-    <h1>Cocopasty</h1>
-    <CodeEditor
-      :languages="languages"
-      :language_selector="true"
-      :autofocus="true"
-      width="100%"
-      v-model="code"/>
+  <div>
+    <h1 class="title">Cocopasty</h1>
+    <div class="container">
+      <div class="subtitle">
+        <p>
+        Copy-and-paste your code, open up this site on another device and then copy-and-paste again :)
+        </p>
+      </div>
+      <CodeEditor
+        :class="theme"
+        :theme="theme"
+        value=""
+        width="100%"
+        height="450px"
+        :language_selector="true"
+        v-model="code"
+        :languages="languages"
+      ></CodeEditor>
+    </div>
   </div>
 </template>
 
@@ -14,9 +25,9 @@
 import CodeEditor from 'simple-code-editor';
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    CodeEditor
+    CodeEditor,
   },
   data() {
     return {
@@ -24,62 +35,87 @@ export default {
       languages: [
         ['javascript', 'JS'],
         ['python', 'Python'],
-        ['brainfuck','Brainfuck'],
-        ['applescript','AppleScript'],
         ['xml', 'XML'],
         ['bash','Bash'],
-        ['basic','Basic'],
         ['c','C'],
-        ['clojure','Clojure'],
-        ['coffeescript','CoffeeScript'],
         ['csharp','C#'],
         ['css','CSS'],
         ['markdown','Markdown'],
         ['dart','Dart'],
         ['django','Django'],
-        ['dockerfile','Dockerfile'],
         ['ruby','Ruby'],
-        ['fortran','Fortran'],
         ['go','Go'],
-        ['haskell','Haskell'],
         ['java','Java'],
         ['javascript','JavaScript'],
         ['json','JSON'],
-        ['kotlin','Kotlin'],
-        ['lisp','Lisp'],
-        ['lua','Lua'],
-        ['perl','Perl'],
-        ['powershell','PowerShell'],
         ['python','Python'],
         ['r','R'],
         ['rust','Rust'],
-        ['scala','Scala'],
-        ['scilab','Scilab'],
-        ['scss','SCSS'],
         ['shell','Shell'],
         ['sql','SQL'],
         ['swift','Swift'],
         ['yaml','YAML'],
-        ['typescript','TypeScript'],
-        ['vbscript','VBScript'],
-        ['vim','Vim']
+        ['typescript','TypeScript']
       ]
-    }
+    };
   }
-}
+};
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+<style lang="scss">
+
+$body_width: 75%;
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI Variable, Segoe UI,
+    system-ui, ui-sans-serif, Helvetica, Arial, sans-serif, Apple Color Emoji,
+    Segoe UI Emoji;
+  margin: 0;
+  background: #181916;
+}
+h1,
+p {
+  color: white;
+  a {
+    font-family: Consolas, Monaco, monospace;
+  }
+}
+h1 {
+  font-family: 'Roboto Mono';
+  margin: 50px 0;
+  font-size: 46px;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+}
+.subtitle {
+  text-align: center;
+  & + div {
+    margin-top: 60px;
+  }
+}
+.code_editor {
+  & + .code_editor {
+    margin-top: 32px;
+  }
+  & + p {
+    margin-top: 32px;
+  }
 }
 .container {
   margin: 0 auto;
-  max-width: 580px; 
+  max-width: $body_width;
+}
+@media screen and (max-width: 560px) {
+  .button_group {
+    flex-wrap: wrap;
+    margin-top: 0;
+    button {
+      width: calc(50% - 10px);
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      margin-top: 20px;
+      padding: 12px 12px;
+    }
+  }
 }
 </style>
