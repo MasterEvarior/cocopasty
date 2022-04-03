@@ -82,7 +82,7 @@ p {
 }
 h1 {
   font-family: 'Roboto Mono';
-  margin: 50px 0;
+  margin: 5% 0;
   font-size: 46px;
   text-align: center;
 }
@@ -102,6 +102,7 @@ h1 {
 }
 .container {
   margin: 0 auto;
+  margin-bottom: 1%;
   max-width: $body_width;
 }
 @media screen and (max-width: 560px) {
