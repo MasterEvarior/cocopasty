@@ -4,7 +4,7 @@
     <div class="container">
       <div class="subtitle">
         <p>
-        Copy-and-paste your code, open up this site on another device and then copy-and-paste again :)
+        Copy-and-paste your code, open this site on another device and then copy-and-paste again :)
         </p>
       </div>
       <CodeEditor
