@@ -3,7 +3,11 @@ services:
     build: ./cocopasty-frontend
     ports:
       - "8080:80"
+  backend:
+    build: ./cocopasty-backend
+    ports:
+      - "8081:8080"
   redis:
-    image: "redis:latest"
+    image: "redis:alpine"
     ports:
       - "6379:6379"
