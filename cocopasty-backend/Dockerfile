@@ -1,4 +1,5 @@
-FROM golang:latest
+FROM golang:alpine
+RUN apk add --no-cache git
 RUN mkdir /app
 ADD . /app
 WORKDIR /app
