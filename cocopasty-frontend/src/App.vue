@@ -29,6 +29,17 @@ export default {
   components: {
     CodeEditor,
   },
+  mounted() {
+    this.$toast.error(`Hey! I'm here`);
+  },
+  methods: {
+    getData(){
+      
+    },
+    pushData(){
+      
+    }
+  },
   data() {
     return {
       code: '',
