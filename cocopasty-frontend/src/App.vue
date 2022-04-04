@@ -30,19 +30,44 @@ export default {
     CodeEditor,
   },
   mounted() {
-    this.$toast.error(`Hey! I'm here`);
+    this.getData()
   },
   methods: {
     getData(){
-      
+      let backendError = false;
+
+      fetch(this.backendUrl)
+        .then(response => {
+          if (!response.ok) {
+            console.error(response.status)
+          }
+          return response.json();
+        })
+        .then(json => {
+          this.code = json.Code;
+        })
+        .catch(function () {
+          backendError = true;
+        })
+
+        if(backendError){
+          this.$toast.error(`Error while communicating with backend...`)
+        }
     },
     pushData(){
-      
+      const options = {
+        method: 'POST',
+        body: JSON.stringify({"Code": this.code, "Language": 'js'}),
+        headers: {'Content-Type': 'application/json'}
+      }
+
+      fetch(this.backendUrl, options)
     }
   },
   data() {
     return {
       code: '',
+      backendUrl: 'http://' + this.backendHost + ':' + this.backendPort,
       languages: [
         ['javascript', 'JS'],
         ['python', 'Python'],

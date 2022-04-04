@@ -2,6 +2,11 @@ import { createApp } from 'vue'
 import Toaster from '@meforma/vue-toaster';
 import App from './App.vue'
 
-createApp(App)
+let app = createApp(App)
+
+app.config.globalProperties.backendHost = 'localhost'
+app.config.globalProperties.backendPort = '8080'
+
+app
     .use(Toaster)
     .mount('#app')
