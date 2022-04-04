@@ -17,22 +17,40 @@
         v-model="code"
         :languages="languages"
       ></CodeEditor>
+      <div class="toggle">
+        <vue-toggle
+          title="Don't forget to save :)" 
+          name="vue-toggle"
+          darkTheme="true"
+          activeColor="#07fc48"
+          toggled="true"
+          @toggle="toggled()"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import CodeEditor from 'simple-code-editor';
+import VueToggle from 'vue-toggle-component';
 
 export default {
   name: "App",
   components: {
     CodeEditor,
+    VueToggle
   },
   mounted() {
     this.getData()
   },
   methods: {
+    toggled(){
+      this.toggleActive = !this.toggleActive;
+      if(this.toggleActive){
+        this.pushData()
+      }
+    },
     getData(){
       let backendError = false;
 
@@ -55,6 +73,7 @@ export default {
         }
     },
     pushData(){
+      this.$toast.show(`Trying to save....`)
       const options = {
         method: 'POST',
         body: JSON.stringify({"Code": this.code, "Language": 'js'}),
@@ -68,6 +87,7 @@ export default {
     return {
       code: '',
       backendUrl: 'http://' + this.backendHost + ':' + this.backendPort,
+      toggleActive: true,
       languages: [
         ['javascript', 'JS'],
         ['python', 'Python'],
@@ -127,6 +147,13 @@ h1 {
   & + div {
     margin-top: 60px;
   }
+}
+.toggle{
+  margin-top: 1%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: space-between;
 }
 .code_editor {
   & + .code_editor {
