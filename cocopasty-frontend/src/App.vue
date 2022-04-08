@@ -86,7 +86,7 @@ export default {
   data() {
     return {
       code: '',
-      backendUrl: 'http://' + this.backendHost + ':' + this.backendPort,
+      backendUrl: 'http://' + process.env.VUE_APP_BACKEND_HOST + ':' + process.env.VUE_APP_BACKEND_PORT,
       toggleActive: true,
       languages: [
         ['javascript', 'JS'],
