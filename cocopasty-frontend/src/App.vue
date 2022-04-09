@@ -17,37 +17,31 @@
         v-model="code"
         :languages="languages"
       ></CodeEditor>
-      <div class="toggle">
-        <vue-toggle
-          title="Don't forget to save :)" 
-          name="vue-toggle"
-          darkTheme="true"
-          activeColor="#07fc48"
-          toggled="true"
-          @toggle="toggled()"
-        />
-      </div>
     </div>
   </div>
 </template>
 
 <script>
 import CodeEditor from 'simple-code-editor';
-import VueToggle from 'vue-toggle-component';
 
 export default {
   name: "App",
   components: {
-    CodeEditor,
-    VueToggle
+    CodeEditor
   },
   mounted() {
-    this.getData()
+    this.getData(),
+    this.timer = setInterval(() => {
+    this.shouldSave()
+  }, 15000)
   },
   methods: {
-    toggled(){
-      this.toggleActive = !this.toggleActive;
-      if(this.toggleActive){
+    shouldSave(){
+      console.log("hey :)")
+      if(this.code !== this.oldCode){
+        console.log("Code changed wooow!")
+        this.oldCode = this.code;
+        this.$toast.show('Trying to save your code snippet...')
         this.pushData()
       }
     },
@@ -64,7 +58,7 @@ export default {
         .then(json => {
           this.code = json.Code;
         })
-        .catch(function () {
+        .catch(function() {
           backendError = true;
         })
 
@@ -73,21 +67,36 @@ export default {
         }
     },
     pushData(){
-      this.$toast.show(`Trying to save....`)
       const options = {
         method: 'POST',
         body: JSON.stringify({"Code": this.code, "Language": 'js'}),
         headers: {'Content-Type': 'application/json'}
       }
 
+      let backendError = false;
+
       fetch(this.backendUrl, options)
+        .then(response => {
+          if (!response.ok) {
+            console.error(response.status)
+          }
+          return response.json();
+        })
+        .catch(function(){
+          backendError = true;
+        })
+
+        if(backendError){
+          this.$toast.error(`Error while communicating with backend...`)
+        }
     }
   },
   data() {
     return {
       code: '',
+      oldCode: '',
+      timer: null,
       backendUrl: 'http://' + process.env.VUE_APP_BACKEND_HOST + ':' + process.env.VUE_APP_BACKEND_PORT,
-      toggleActive: true,
       languages: [
         ['javascript', 'JS'],
         ['python', 'Python'],
@@ -114,6 +123,9 @@ export default {
         ['typescript','TypeScript']
       ]
     };
+  },
+  beforeUnmount() {
+    clearInterval(this.timer)
   }
 };
 </script>
@@ -147,13 +159,6 @@ h1 {
   & + div {
     margin-top: 60px;
   }
-}
-.toggle{
-  margin-top: 1%;
-  margin-left: auto;
-  margin-right: auto;
-  display: flex;
-  justify-content: space-between;
 }
 .code_editor {
   & + .code_editor {
