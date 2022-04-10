@@ -53,10 +53,8 @@
   * [Running Tests](#running-tests)
   * [Run Locally](#run-locally)
   * [Deployment](#deployment)
-- [Usage](#usage)
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
-  * [Code of Conduct](#code-of-conduct)
 - [FAQ](#faq)
 - [License](#license)
 - [Contact](#contact)
@@ -187,20 +185,6 @@ TODO
 ### Unraid
 TODO
 
-<!-- Usage -->
-## Usage
-
-Use this space to tell a little more about your project and how it can be used. Show additional screenshots, code samples, demos or link to other resources.
-
-
-```javascript
-import Component from 'my-project'
-
-function App() {
-  return <Component />
-}
-```
-
 <!-- Roadmap -->
 ## Roadmap
 There is currently no roadmap or any planned features. Feel free to suggest features through a GitHub issue.
@@ -208,17 +192,12 @@ There is currently no roadmap or any planned features. Feel free to suggest feat
 ## Contributing
 Contributions are always welcome!
 
-<!-- Code of Conduct -->
-### Code of Conduct
-
-Please read the [Code of Conduct](https://github.com/Louis3797/awesome-readme-template/blob/master/CODE_OF_CONDUCT.md)
-
 <!-- FAQ -->
 ## FAQ
 
-- Question 1
+- Is there a method to install WITHOUT Docker?
 
-  + Answer 1
+  + No
 
 - Question 2
 
