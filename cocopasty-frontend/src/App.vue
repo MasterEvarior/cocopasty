@@ -33,9 +33,7 @@ export default {
   },
   methods: {
     highlighter(code){
-      let val = hljs.highlightAuto(code).value
-      console.log(val)
-      return val;
+      return hljs.highlightAuto(code).value
     },
     getData(){
       let backendError = false;
