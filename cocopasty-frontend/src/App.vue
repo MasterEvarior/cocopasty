@@ -7,43 +7,35 @@
         Copy-and-paste your code, open this site on another device and then copy-and-paste again :)
         </p>
       </div>
-      <CodeEditor
-        :class="theme"
-        :theme="theme"
-        value=""
-        width="100%"
-        height="450px"
-        :language_selector="true"
-        v-model="code"
-        :languages="languages"
-      ></CodeEditor>
+      <PrismEditor
+        class="my-editor"
+        v-model="code" 
+        :highlight="highlighter" 
+        line-numbers
+      />
     </div>
   </div>
 </template>
 
 <script>
-import CodeEditor from 'simple-code-editor';
+import { PrismEditor } from 'vue-prism-editor';
+import 'vue-prism-editor/dist/prismeditor.min.css';
+import hljs from 'highlight.js';
+import 'highlight.js/styles/default.css'
 
 export default {
   name: "App",
   components: {
-    CodeEditor
+    PrismEditor
   },
   mounted() {
-    this.getData(),
-    this.timer = setInterval(() => {
-    this.shouldSave()
-  }, 15000)
+    this.getData()
   },
   methods: {
-    shouldSave(){
-      console.log("hey :)")
-      if(this.code !== this.oldCode){
-        console.log("Code changed wooow!")
-        this.oldCode = this.code;
-        this.$toast.show('Trying to save your code snippet...')
-        this.pushData()
-      }
+    highlighter(code){
+      let val = hljs.highlightAuto(code).value
+      console.log(val)
+      return val;
     },
     getData(){
       let backendError = false;
@@ -94,38 +86,8 @@ export default {
   data() {
     return {
       code: '',
-      oldCode: '',
-      timer: null,
       backendUrl: 'http://' + process.env.VUE_APP_BACKEND_HOST + ':' + process.env.VUE_APP_BACKEND_PORT,
-      languages: [
-        ['javascript', 'JS'],
-        ['python', 'Python'],
-        ['xml', 'XML'],
-        ['bash','Bash'],
-        ['c','C'],
-        ['csharp','C#'],
-        ['css','CSS'],
-        ['markdown','Markdown'],
-        ['dart','Dart'],
-        ['django','Django'],
-        ['ruby','Ruby'],
-        ['go','Go'],
-        ['java','Java'],
-        ['javascript','JavaScript'],
-        ['json','JSON'],
-        ['python','Python'],
-        ['r','R'],
-        ['rust','Rust'],
-        ['shell','Shell'],
-        ['sql','SQL'],
-        ['swift','Swift'],
-        ['yaml','YAML'],
-        ['typescript','TypeScript']
-      ]
     };
-  },
-  beforeUnmount() {
-    clearInterval(this.timer)
   }
 };
 </script>
@@ -160,18 +122,25 @@ h1 {
     margin-top: 60px;
   }
 }
-.code_editor {
-  & + .code_editor {
-    margin-top: 32px;
-  }
-  & + p {
-    margin-top: 32px;
-  }
-}
 .container {
   margin: 0 auto;
   margin-bottom: 1%;
   max-width: $body_width;
+}
+.my-editor {
+    /* we dont use `language-` classes anymore so thats why we need to add background and text color manually */
+    background: #2d2d2d;
+    color: #ccc;
+
+    /* you must provide font-family font-size line-height. Example: */
+    font-family: Fira code, Fira Mono, Consolas, Menlo, Courier, monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 5px;
+}
+
+.prism-editor__textarea:focus {
+  outline: none;
 }
 @media screen and (max-width: 560px) {
   .button_group {
