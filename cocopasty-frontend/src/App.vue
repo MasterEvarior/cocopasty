@@ -13,6 +13,7 @@
         :highlight="highlighter" 
         line-numbers
       />
+      <button class="save-button" @click="pushData">Save</button>
     </div>
   </div>
 </template>
@@ -60,11 +61,13 @@ export default {
     pushData(){
       const options = {
         method: 'POST',
-        body: JSON.stringify({"Code": this.code, "Language": 'js'}),
+        body: JSON.stringify({"Code": this.code}),
         headers: {'Content-Type': 'application/json'}
       }
 
       let backendError = false;
+
+      this.$toast.show(`Trying to save your code...`)
 
       fetch(this.backendUrl, options)
         .then(response => {
@@ -78,6 +81,7 @@ export default {
         })
 
         if(backendError){
+          console.log("tes")
           this.$toast.error(`Error while communicating with backend...`)
         }
     }
@@ -127,32 +131,43 @@ h1 {
   max-width: $body_width;
 }
 .my-editor {
-    /* we dont use `language-` classes anymore so thats why we need to add background and text color manually */
     background: #2d2d2d;
     color: #ccc;
 
-    /* you must provide font-family font-size line-height. Example: */
     font-family: Fira code, Fira Mono, Consolas, Menlo, Courier, monospace;
     font-size: 14px;
     line-height: 1.5;
     padding: 5px;
 }
 
+.save-button {
+  margin-top: 2%;
+  margin-right: 0px;
+  float: right;
+
+  background-color:#44c767;
+	border-radius:5px;
+	border:1px solid #18ab29;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	padding: 0.5% 1%;
+	text-decoration: none;
+	text-shadow:0px 1px 0px #2f6627;
+}
+
+.save-button:hover {
+	background-color:#5cbf2a;
+}
+.save-button:active {
+	position:relative;
+	top:1px;
+}
+
+
 .prism-editor__textarea:focus {
   outline: none;
-}
-@media screen and (max-width: 560px) {
-  .button_group {
-    flex-wrap: wrap;
-    margin-top: 0;
-    button {
-      width: calc(50% - 10px);
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      margin-top: 20px;
-      padding: 12px 12px;
-    }
-  }
 }
 </style>
