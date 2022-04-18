@@ -108,7 +108,8 @@ Cocopasty is a small and simply copy-and-paste solution for your code. Paste you
 ### Features
 
 - So simple, your pet rock could use it
-- 20+ available languages
+- 150+ available languages
+- Autodetect languages with [highlight.js](https://highlightjs.org)
 - Completely dockerized
 <!-- Getting Started -->
 ## Getting Started
@@ -178,13 +179,6 @@ To deploy this project copy the [docker-compose.yml](https://github.com/MasterEv
 ```bash
   docker-compose up
 ```
-
-### Docker
-TODO
-
-### Unraid
-TODO
-
 <!-- Roadmap -->
 ## Roadmap
 There is currently no roadmap or any planned features. Feel free to suggest features through a GitHub issue.
@@ -220,9 +214,9 @@ Project Link: [https://github.com/MasterEvarior/cocopasty](https://github.com/Ma
 <!-- Acknowledgments -->
 ## Acknowledgements
 
-Use this section to mention useful resources and libraries that you have used in your projects.
+Cool project which make Cocopasty possible
 
  - [Shields.io](https://shields.io/)
- - [Awesome README](https://github.com/matiassingers/awesome-readme)
- - [Readme Template](https://github.com/othneildrew/Best-README-Template)
  - [Awesome Readme Template](https://github.com/Louis3797/awesome-readme-template)
+ - [highlight.js](https://highlightjs.org)
+ - [Vue Prism Editor](https://github.com/koca/vue-prism-editor)
