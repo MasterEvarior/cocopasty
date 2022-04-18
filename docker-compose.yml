@@ -3,6 +3,9 @@ services:
     build: ./cocopasty-frontend
     ports:
       - "8080:80"
+    environment:
+      VUE_APP_BACKEND_PORT: 8081
+      VUE_APP_BACKEND_HOST: "localhost"
   backend:
     build: ./cocopasty-backend
     ports:

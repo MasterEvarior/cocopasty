@@ -21,7 +21,8 @@
 import { PrismEditor } from 'vue-prism-editor';
 import 'vue-prism-editor/dist/prismeditor.min.css';
 import hljs from 'highlight.js';
-import 'highlight.js/styles/default.css'
+import 'highlight.js/styles/default.css';
+import getEnv from '@/utils/env';
 
 export default {
   name: "App",
@@ -84,7 +85,7 @@ export default {
   data() {
     return {
       code: '',
-      backendUrl: 'http://' + process.env.VUE_APP_BACKEND_HOST + ':' + process.env.VUE_APP_BACKEND_PORT,
+      backendUrl: 'http://' + getEnv('VUE_APP_BACKEND_HOST') + ':' + getEnv('VUE_APP_BACKEND_PORT'),
     };
   }
 };
