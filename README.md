@@ -197,6 +197,13 @@ Contributions are always welcome!
 
   + No, though you could use something like [Authelia](https://www.authelia.com/docs/)
 
+- Can I use this to copy my API-Keys etc. from one device to another?
+
+  + You can but I'd strongly advise against it
+
+- Which languages are available for auto-highligting?
+
+  + A complete list can be found [here](https://highlightjs.readthedocs.io/en/latest/supported-languages.html)
 
 <!-- License -->
 ## License
