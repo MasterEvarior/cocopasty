@@ -10,9 +10,10 @@ import (
 )
 
 type CodeSnippet struct {
-	Code     string `json:Code`
-	Language string `json:Language`
+	Code string `json:Code`
 }
+
+var snippet CodeSnippet
 
 func main() {
 	//Initialize router
@@ -31,13 +32,33 @@ func main() {
 }
 
 func handlePosts(w http.ResponseWriter, r *http.Request) {
+	contentType := r.Header.Get("Content-Type")
+	if contentType != "application/json" {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
 
+	var newSnippet CodeSnippet
+
+	decoder := json.NewDecoder(r.Body)
+	err := decoder.Decode(&newSnippet)
+
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	snippet = newSnippet
+	w.WriteHeader(http.StatusCreated)
+
+	return
 }
 
 func handleGets(w http.ResponseWriter, r *http.Request) {
-	snippet := CodeSnippet{"Console.log(12)", "js"}
 
 	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
 
 	json.NewEncoder(w).Encode(snippet)
+	return
 }
