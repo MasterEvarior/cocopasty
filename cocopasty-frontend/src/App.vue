@@ -13,7 +13,8 @@
         :highlight="highlighter" 
         line-numbers
       />
-      <button class="save-button" @click="pushData">Save</button>
+      <button class="button save-button" @click="pushData">Save</button>
+      <button class="button copy-button" @click="copyToClipboard">Copy</button>
     </div>
   </div>
 </template>
@@ -81,9 +82,12 @@ export default {
         })
 
         if(backendError){
-          console.log("tes")
           this.$toast.error(`Error while communicating with backend...`)
         }
+    },
+    copyToClipboard(){
+      navigator.clipboard.writeText(this.code);
+      this.$toast.success(`Snippet copied into clipboard!`)
     }
   },
   data() {
@@ -141,13 +145,21 @@ h1 {
 }
 
 .save-button {
+	border-color:#18ab29;
+	text-shadow:0#2f6627;
+}
+
+.copy-button {
+  margin-right: 10px;
+}
+
+.button {
   margin-top: 2%;
-  margin-right: 0px;
   float: right;
 
-  background-color:#44c767;
+  background-color:transparent;
 	border-radius:5px;
-	border:1px solid #18ab29;
+	border:1px solid;
 	display:inline-block;
 	cursor:pointer;
 	color:#ffffff;
@@ -155,13 +167,10 @@ h1 {
 	font-size:17px;
 	padding: 0.5% 1%;
 	text-decoration: none;
-	text-shadow:0px 1px 0px #2f6627;
+	text-shadow:0px 1px 0px;
 }
 
-.save-button:hover {
-	background-color:#5cbf2a;
-}
-.save-button:active {
+.button:active {
 	position:relative;
 	top:1px;
 }
