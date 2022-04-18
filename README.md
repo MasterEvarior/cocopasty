@@ -189,13 +189,13 @@ Contributions are always welcome!
 <!-- FAQ -->
 ## FAQ
 
-- Is there a method to install WITHOUT Docker?
+- Is there an official method to install WITHOUT Docker?
 
   + No
 
-- Question 2
+- Is there any sort of build in authentication?
 
-  + Answer 2
+  + No, though you could use something like [Authelia](https://www.authelia.com/docs/)
 
 
 <!-- License -->
@@ -214,9 +214,10 @@ Project Link: [https://github.com/MasterEvarior/cocopasty](https://github.com/Ma
 <!-- Acknowledgments -->
 ## Acknowledgements
 
-Cool project which make Cocopasty possible
+Cool projects which make Cocopasty possible
 
  - [Shields.io](https://shields.io/)
  - [Awesome Readme Template](https://github.com/Louis3797/awesome-readme-template)
  - [highlight.js](https://highlightjs.org)
  - [Vue Prism Editor](https://github.com/koca/vue-prism-editor)
+ - [Guide to Vue.js + Docker env variables](https://medium.com/js-dojo/vue-js-runtime-environment-variables-807fa8f68665)
