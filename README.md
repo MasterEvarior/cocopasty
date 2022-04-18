@@ -69,7 +69,7 @@ Cocopasty is a small and simply copy-and-paste solution for your code. Paste you
 ### Screenshots
 
 <div align="center"> 
-  <img src="https://placehold.co/600x400?text=Your+Screenshot+here" alt="screenshot" />
+  <img src="assets/screenshot.png" alt="screenshot" />
 </div>
 
 
@@ -221,3 +221,4 @@ Cool projects which make Cocopasty possible
  - [highlight.js](https://highlightjs.org)
  - [Vue Prism Editor](https://github.com/koca/vue-prism-editor)
  - [Guide to Vue.js + Docker env variables](https://medium.com/js-dojo/vue-js-runtime-environment-variables-807fa8f68665)
+ - [CSS Button Generator](https://www.bestcssbuttongenerator.com)
