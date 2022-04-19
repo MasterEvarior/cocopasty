@@ -1,4 +1,4 @@
-# cocopasty-frontend
+# Cocopasty Frontend
 
 ## Project setup
 ```
@@ -22,3 +22,9 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## Docker
+Build container locally
+```
+docker build -t cocopasty-frontend . 
+```
