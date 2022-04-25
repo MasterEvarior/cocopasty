@@ -181,7 +181,11 @@ To deploy this project copy the [docker-compose.yml](https://github.com/MasterEv
 ```
 <!-- Roadmap -->
 ## Roadmap
-There is currently no roadmap or any planned features. Feel free to suggest features through a GitHub issue.
+Feel free to suggest features through a GitHub issue, in addition to the ones listed below:
+- [ ] Backend tests
+- [ ] Installation instructions for Unraid
+- [ ] Installation instructions without Docker Compose
+
 <!-- Contributing -->
 ## Contributing
 Contributions are always welcome!
