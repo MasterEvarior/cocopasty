@@ -49,8 +49,6 @@
   * [Features](#features)
 - [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
-  * [Installation](#installation)
-  * [Running Tests](#running-tests)
   * [Run Locally](#run-locally)
   * [Deployment](#deployment)
 - [Roadmap](#roadmap)
@@ -116,31 +114,7 @@ Cocopasty is a small and simply copy-and-paste solution for your code. Paste you
 
 <!-- Prerequisites -->
 ### Prerequisites
-
-This project uses Yarn as package manager
-
-```bash
- npm install --global yarn
-```
-
-<!-- Installation -->
-### Installation
-
-Install my-project with npm
-
-```bash
-  yarn install my-project
-  cd my-project
-```
-   
-<!-- Running Tests -->
-### Running Tests
-
-To run tests, run the following command
-
-```bash
-  yarn test test
-```
+You need to have Go, Docker, Docker Compose and NPM installed to run/develop this project.
 
 <!-- Run Locally -->
 ### Run Locally
@@ -148,27 +122,20 @@ To run tests, run the following command
 Clone the project
 
 ```bash
-  git clone https://github.com/Louis3797/awesome-readme-template.git
+  git clone https://https://github.com/MasterEvarior/cocopasty.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd my-project
+  cd cocopasty
 ```
 
-Install dependencies
+Run with Docker Compose
 
 ```bash
-  yarn install
+  docker-compose up
 ```
-
-Start the server
-
-```bash
-  yarn start
-```
-
 
 <!-- Deployment -->
 ### Deployment
