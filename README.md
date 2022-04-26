@@ -32,9 +32,9 @@
 </p>
    
 <h4>
-    <a href="https://github.com/MasterEvarior/cocopasty/issues/new/choose">Report Bug</a>
+    <a href="https://github.com/MasterEvarior/cocopasty/issues/new?assignees=MasterEvarior&labels=bug&template=bug_report.md&title=">Report Bug</a>
   <span> · </span>
-    <a href="https://github.com/MasterEvarior/cocopasty/issues/new/choose">Request Feature</a>
+    <a href="https://github.com/MasterEvarior/cocopasty/issues/new?assignees=MasterEvarior&labels=enhancement&template=feature_request.md&title=">Request Feature</a>
   </h4>
 </div>
 
@@ -141,9 +141,19 @@ Run with Docker Compose
 ### Deployment
 
 #### Docker Compose
-To deploy this project copy the [docker-compose.yml](https://github.com/MasterEvarior/cocopasty/blob/main/docker-compose.yml) file and run
+To deploy this project copy the contents of the [docker-compose-deploy.yml](https://github.com/MasterEvarior/cocopasty/blob/main/docker-compose-deploy.yml) file and paste it into a new file.
 
 ```bash
+  wget https://raw.githubusercontent.com/MasterEvarior/cocopasty/main/docker-compose-deploy.yml
+```
+Change the ports, volumes, etc. to your liking.
+```bash
+  vi docker-compose.yml
+```
+
+Rename the file and run it with Docker Compose.
+```bash
+  mv docker-compose-deploy.yml docker-compose.yml
   docker-compose up
 ```
 <!-- Roadmap -->
