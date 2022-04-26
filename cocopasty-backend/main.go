@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 
@@ -44,14 +45,14 @@ func handlePosts(w http.ResponseWriter, r *http.Request) {
 	err := decoder.Decode(&newSnippet)
 
 	if err != nil {
+		fmt.Print(err)
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
 
 	snippet = newSnippet
+	createEntry(newSnippet.Code)
 	w.WriteHeader(http.StatusCreated)
-
-	return
 }
 
 func handleGets(w http.ResponseWriter, r *http.Request) {
@@ -60,5 +61,4 @@ func handleGets(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 
 	json.NewEncoder(w).Encode(snippet)
-	return
 }
