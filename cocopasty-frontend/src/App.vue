@@ -83,7 +83,10 @@ export default {
 
         if(backendError){
           this.$toast.error(`Error while communicating with backend...`)
+          return
         }
+
+        this.$toast.success(`Data successfully saved!`)
     },
     copyToClipboard(){
       navigator.clipboard.writeText(this.code);
@@ -93,7 +96,7 @@ export default {
   data() {
     return {
       code: '',
-      backendUrl: 'http://' + getEnv('VUE_APP_BACKEND_HOST') + ':' + getEnv('VUE_APP_BACKEND_PORT'),
+      backendUrl: getEnv('VUE_APP_BACKEND_HOST') + ':' + getEnv('VUE_APP_BACKEND_PORT'),
     };
   }
 };

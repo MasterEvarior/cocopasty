@@ -5,7 +5,7 @@ services:
       - "8080:80"
     environment:
       VUE_APP_BACKEND_PORT: 8081
-      VUE_APP_BACKEND_HOST: "localhost"
+      VUE_APP_BACKEND_HOST: "http://localhost"
   backend:
     build: cocopasty-backend:latest
     ports:
