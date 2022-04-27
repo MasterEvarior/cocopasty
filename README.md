@@ -8,6 +8,10 @@
     A simple copy-and-paste app to selfhost
   </p>
   
+  <p>
+    ⚠️ This project might still have a few bugs and things to test ⚠️ 
+  </p>
+  
   
 <!-- Badges -->
 <p>
