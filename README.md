@@ -48,6 +48,7 @@
   * [Tech Stack](#tech-stack)
   * [Features](#features)
 - [Getting Started](#getting-started)
+  * [Configuration](#configuration)
   * [Prerequisites](#prerequisites)
   * [Run Locally](#run-locally)
   * [Deployment](#deployment)
@@ -115,6 +116,17 @@ Cocopasty is a small and simply copy-and-paste solution for your code. Paste you
 <!-- Prerequisites -->
 ### Prerequisites
 You need to have Go, Docker, Docker Compose and NPM installed to run/develop this project.
+
+### Configuration
+Explanations for the different environment variables. Examples can be found in the docker-compose.yml files.
+
+#### Frontend
+- `VUE_APP_BACKEND_PORT` is the port your cocopasty-backend container runs.
+- `VUE_APP_BACKEND_HOST` is the host of your cocopasty-backend container.
+
+#### Backend
+- `LOG_LEVEL` the log level you wish to use. Default is "info". All log levels can be found [here](https://github.com/Sirupsen/logrus#level-logging).
+- `REDIS_HOST` is the host + port of your Redis DB.
 
 <!-- Run Locally -->
 ### Run Locally
