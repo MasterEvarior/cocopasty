@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"os"
 
 	"github.com/go-redis/redis/v8"
 	log "github.com/sirupsen/logrus"
@@ -17,7 +18,7 @@ func createConnection() {
 	log.Debug("Creating connection to Redis...")
 	connection = redis.NewClient(&redis.Options{
 		Network:  "tcp",
-		Addr:     "redis:6379",
+		Addr:     getAddress(),
 		Password: "",
 		DB:       0,
 	})
@@ -53,4 +54,11 @@ func readEntry() (string, bool) {
 	}
 
 	return stringValue, false
+}
+
+func getAddress() string {
+	input := os.Getenv("REDIS_HOST")
+	log.Info("REDIS_HOST: ", input)
+
+	return input
 }
