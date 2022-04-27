@@ -3,21 +3,21 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 
 	"github.com/gorilla/mux"
 	"github.com/rs/cors"
+	log "github.com/sirupsen/logrus"
 )
 
 type CodeSnippet struct {
 	Code string `json:Code`
 }
 
-var snippet CodeSnippet
-
 func main() {
+	setLogLevel()
 	//Initialize router
+	log.Info("Starting Cocopasty...")
 	router := mux.NewRouter()
 
 	router.HandleFunc("/", handleGets).Methods("GET")
@@ -26,15 +26,20 @@ func main() {
 	corsHandler := cors.Default().Handler(router)
 
 	//Start server
+	log.Info("Starting web server...")
 	err := http.ListenAndServe(":8080", corsHandler)
 	if err != nil {
 		log.Fatal(err)
 	}
+	log.Info("Cocopasty is started and ready!")
 }
 
 func handlePosts(w http.ResponseWriter, r *http.Request) {
+	log.Debug("Received POST-Request")
+
 	contentType := r.Header.Get("Content-Type")
 	if contentType != "application/json" {
+		log.Debug("Invalid content type, returning 400")
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -45,20 +50,32 @@ func handlePosts(w http.ResponseWriter, r *http.Request) {
 	err := decoder.Decode(&newSnippet)
 
 	if err != nil {
+		log.Debug("Invalid JSON, returning 400")
 		fmt.Print(err)
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
 
-	snippet = newSnippet
 	createEntry(newSnippet.Code)
-	w.WriteHeader(http.StatusCreated)
+
+	log.Debug("GET-Request successfull, returning 200")
+	w.WriteHeader(http.StatusOK)
 }
 
 func handleGets(w http.ResponseWriter, r *http.Request) {
+	log.Debug("Received GET-Request")
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 
-	json.NewEncoder(w).Encode(snippet)
+	value, err := readEntry()
+
+	if err {
+		log.Debug("GET-Request failure, returning 500")
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	log.Debug("GET-Request successfull, returning 200")
+	json.NewEncoder(w).Encode(CodeSnippet{value})
 }

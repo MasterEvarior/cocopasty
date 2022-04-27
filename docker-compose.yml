@@ -10,6 +10,8 @@ services:
     build: ./cocopasty-backend
     ports:
       - "8081:8080"
+    environment:
+      LOG_LEVEL: debug
   redis:
     image: "redis:alpine"
     ports:
