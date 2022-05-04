@@ -164,7 +164,7 @@ To deploy this project copy the contents of the [docker-compose-deploy.yml](http
 ```
 Change the ports, volumes, etc. to your liking.
 ```bash
-  vi docker-compose.yml
+  vi docker-compose-deploy.yml
 ```
 
 Rename the file and run it with Docker Compose.
