@@ -203,6 +203,14 @@ Contributions are always welcome!
 
   + A complete list can be found [here](https://highlightjs.readthedocs.io/en/latest/supported-languages.html)
 
+- Can I use this with my already existing Redis instance?
+
+  + Sure, you just have to adjust the compose file to your liking
+
+- Does the default compose file configure Redis to be persistent?
+
+  + No
+
 <!-- License -->
 ## License
 
