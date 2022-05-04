@@ -19,7 +19,7 @@ func createConnection() {
 	connection = redis.NewClient(&redis.Options{
 		Network:  "tcp",
 		Addr:     getAddress(),
-		Password: "",
+		Password: getPassword(),
 		DB:       0,
 	})
 
@@ -59,6 +59,15 @@ func readEntry() (string, bool) {
 func getAddress() string {
 	input := os.Getenv("REDIS_HOST")
 	log.Info("REDIS_HOST: ", input)
+
+	return input
+}
+
+func getPassword() string {
+	input := os.Getenv("REDIS_PASSWORD")
+	if input == "" {
+		log.Info("No Redis password was set")
+	}
 
 	return input
 }

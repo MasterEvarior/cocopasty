@@ -13,6 +13,7 @@ services:
     environment:
       LOG_LEVEL: "debug"
       REDIS_HOST: "redis:6379"
+#     REDIS_PASSWORD: "123" currently not used
   redis:
     image: "redis:alpine"
     ports:

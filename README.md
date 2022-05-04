@@ -131,6 +131,7 @@ Explanations for the different environment variables. Examples can be found in t
 #### Backend
 - `LOG_LEVEL` the log level you wish to use. Default is "info". All log levels can be found [here](https://github.com/Sirupsen/logrus#level-logging).
 - `REDIS_HOST` is the host + port of your Redis DB.
+- `REDIS_PASSWORD` if your Redis instance uses password authentication, set here your password. If left empty, authentication without password will be tried.
 
 <!-- Run Locally -->
 ### Run Locally
