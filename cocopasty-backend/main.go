@@ -11,7 +11,7 @@ import (
 )
 
 type CodeSnippet struct {
-	Code string `json:Code`
+	Code string `json:"Code"`
 }
 
 func main() {
