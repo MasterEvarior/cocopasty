@@ -21,6 +21,8 @@ func main() {
 	log.Info("Starting Cocopasty...")
 	router := mux.NewRouter()
 
+	router.Use(LoggingMiddleware)
+
 	router.HandleFunc("/", handleGets).Methods("GET")
 	router.HandleFunc("/", handlePosts).Methods("POST")
 
@@ -44,8 +46,6 @@ func main() {
 }
 
 func handlePosts(w http.ResponseWriter, r *http.Request) {
-	log.Debug("Received POST-Request")
-
 	ctx := r.Context()
 
 	contentType := r.Header.Get("Content-Type")
@@ -70,13 +70,9 @@ func handlePosts(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-
-	log.Debug("GET-Request successfull, returning 200")
 }
 
 func handleGets(w http.ResponseWriter, r *http.Request) {
-	log.Debug("Received GET-Request")
-
 	ctx := r.Context()
 
 	w.Header().Set("Content-Type", "application/json")
