@@ -1,4 +1,4 @@
-module cocopasty-backend
+module github.com/MasterEvariour/cocopasty/cocopasty-backend
 
 go 1.18
 
