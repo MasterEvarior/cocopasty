@@ -7,13 +7,15 @@ import (
 )
 
 func setLogLevel() {
+	defer log.Info("Log level to ", log.GetLevel())
 	input := os.Getenv("LOG_LEVEL")
 
 	parsedLevel, err := log.ParseLevel(input)
 
-	if err == nil {
-		log.SetLevel(parsedLevel)
+	if err != nil {
+		log.Error(err)
+		return
 	}
 
-	log.Info("Log level to ", log.GetLevel())
+	log.SetLevel(parsedLevel)
 }

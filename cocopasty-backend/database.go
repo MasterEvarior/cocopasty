@@ -30,26 +30,17 @@ func CreateDatabaseClient() (*database, error) {
 	}, nil
 }
 
-func (d *database) CreateEntry(ctx context.Context, code string) *redis.StatusCmd {
+func (d *database) CreateEntry(ctx context.Context, code string) error {
 	log.Debug("Setting value in Redis...")
-	err := d.connection.Set(ctx, keyName, code, 0)
-	if err != nil {
-		log.Error(err)
-	}
+	status := d.connection.Set(ctx, keyName, code, 0)
 
-	return err
+	return status.Err()
 }
 
-func (d *database) ReadEntry(ctx context.Context) (string, bool) {
+func (d *database) ReadEntry(ctx context.Context) (string, error) {
 	log.Debug("Getting value from Redis...")
-	stringValue, err := d.connection.Get(ctx, keyName).Result()
 
-	if err != nil {
-		log.Error(err)
-		return stringValue, true
-	}
-
-	return stringValue, false
+	return d.connection.Get(ctx, keyName).Result()
 }
 
 func getAddress() string {

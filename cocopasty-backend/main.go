@@ -58,14 +58,18 @@ func handlePosts(w http.ResponseWriter, r *http.Request) {
 	var newSnippet CodeSnippet
 
 	err := json.NewDecoder(r.Body).Decode(&newSnippet)
-
 	if err != nil {
 		log.Error(err)
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
 
-	databaseClient.CreateEntry(ctx, newSnippet.Code)
+	err = databaseClient.CreateEntry(ctx, newSnippet.Code)
+	if err != nil {
+		log.Error(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
 
 	log.Debug("GET-Request successfull, returning 200")
 }
@@ -80,8 +84,8 @@ func handleGets(w http.ResponseWriter, r *http.Request) {
 
 	value, err := databaseClient.ReadEntry(ctx)
 
-	if err {
-		log.Debug("GET-Request failure, returning 500")
+	if err != nil {
+		log.Error(err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
