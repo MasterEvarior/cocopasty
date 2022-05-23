@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -46,12 +45,10 @@ func handlePosts(w http.ResponseWriter, r *http.Request) {
 
 	var newSnippet CodeSnippet
 
-	decoder := json.NewDecoder(r.Body)
-	err := decoder.Decode(&newSnippet)
+	err := json.NewDecoder(r.Body).Decode(&newSnippet)
 
 	if err != nil {
-		log.Debug("Invalid JSON, returning 400")
-		fmt.Print(err)
+		log.Error(err)
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -59,7 +56,6 @@ func handlePosts(w http.ResponseWriter, r *http.Request) {
 	createEntry(newSnippet.Code)
 
 	log.Debug("GET-Request successfull, returning 200")
-	w.WriteHeader(http.StatusOK)
 }
 
 func handleGets(w http.ResponseWriter, r *http.Request) {
