@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -11,8 +10,10 @@ import (
 )
 
 type CodeSnippet struct {
-	Code string `json:Code`
+	Code string `json:"Code"`
 }
+
+var databaseClient *database
 
 func main() {
 	setLogLevel()
@@ -20,14 +21,24 @@ func main() {
 	log.Info("Starting Cocopasty...")
 	router := mux.NewRouter()
 
+	router.Use(LoggingMiddleware)
+
 	router.HandleFunc("/", handleGets).Methods("GET")
 	router.HandleFunc("/", handlePosts).Methods("POST")
 
 	corsHandler := cors.Default().Handler(router)
 
+	//Create database connection
+	var err error
+	databaseClient, err = CreateDatabaseClient()
+
+	if err != nil {
+		panic(err)
+	}
+
 	//Start server
 	log.Info("Starting web server...")
-	err := http.ListenAndServe(":8080", corsHandler)
+	err = http.ListenAndServe(":8080", corsHandler)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -35,7 +46,7 @@ func main() {
 }
 
 func handlePosts(w http.ResponseWriter, r *http.Request) {
-	log.Debug("Received POST-Request")
+	ctx := r.Context()
 
 	contentType := r.Header.Get("Content-Type")
 	if contentType != "application/json" {
@@ -46,32 +57,31 @@ func handlePosts(w http.ResponseWriter, r *http.Request) {
 
 	var newSnippet CodeSnippet
 
-	decoder := json.NewDecoder(r.Body)
-	err := decoder.Decode(&newSnippet)
-
+	err := json.NewDecoder(r.Body).Decode(&newSnippet)
 	if err != nil {
-		log.Debug("Invalid JSON, returning 400")
-		fmt.Print(err)
+		log.Error(err)
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
 
-	createEntry(newSnippet.Code)
-
-	log.Debug("GET-Request successfull, returning 200")
-	w.WriteHeader(http.StatusOK)
+	err = databaseClient.CreateEntry(ctx, newSnippet.Code)
+	if err != nil {
+		log.Error(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
 }
 
 func handleGets(w http.ResponseWriter, r *http.Request) {
-	log.Debug("Received GET-Request")
+	ctx := r.Context()
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 
-	value, err := readEntry()
+	value, err := databaseClient.ReadEntry(ctx)
 
-	if err {
-		log.Debug("GET-Request failure, returning 500")
+	if err != nil {
+		log.Error(err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
