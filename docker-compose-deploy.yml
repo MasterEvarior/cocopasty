@@ -6,6 +6,8 @@ services:
     environment:
       VUE_APP_BACKEND_PORT: 8081
       VUE_APP_BACKEND_HOST: "http://localhost"
+    depends_on:
+      - backend
   backend:
     image: masterevarior/cocopasty-backend:1.2.0
     ports:
@@ -14,6 +16,8 @@ services:
       LOG_LEVEL: "info"
       REDIS_HOST: "redis:6379"
 #     REDIS_PASSWORD: "your_password"
+    depends_on:
+      - redis
   redis:
     image: "redis:alpine"
     ports:
