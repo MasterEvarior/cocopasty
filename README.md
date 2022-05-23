@@ -179,6 +179,9 @@ Feel free to suggest features through a GitHub issue, in addition to the ones li
 - [ ] Backend tests
 - [ ] Installation instructions for Unraid
 - [ ] Installation instructions without Docker Compose
+- [ ] Themes
+- [ ] CI/CD with GitHub-Actions
+- [ ] Reduce external dependencies
 
 <!-- Contributing -->
 ## Contributing
