@@ -9,7 +9,6 @@ import (
 )
 
 var connection *redis.Client
-var ctx context.Context
 
 const keyName = "cocopasty-code-snippet"
 
@@ -22,11 +21,9 @@ func createConnection() {
 		Password: getPassword(),
 		DB:       0,
 	})
-
-	ctx = context.Background()
 }
 
-func createEntry(code string) *redis.StatusCmd {
+func createEntry(ctx context.Context, code string) *redis.StatusCmd {
 	if connection == nil {
 		createConnection()
 	}
@@ -40,7 +37,7 @@ func createEntry(code string) *redis.StatusCmd {
 	return err
 }
 
-func readEntry() (string, bool) {
+func readEntry(ctx context.Context) (string, bool) {
 	if connection == nil {
 		createConnection()
 	}

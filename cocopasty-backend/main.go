@@ -36,6 +36,8 @@ func main() {
 func handlePosts(w http.ResponseWriter, r *http.Request) {
 	log.Debug("Received POST-Request")
 
+	ctx := r.Context()
+
 	contentType := r.Header.Get("Content-Type")
 	if contentType != "application/json" {
 		log.Debug("Invalid content type, returning 400")
@@ -53,7 +55,7 @@ func handlePosts(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	createEntry(newSnippet.Code)
+	createEntry(ctx, newSnippet.Code)
 
 	log.Debug("GET-Request successfull, returning 200")
 }
@@ -61,10 +63,12 @@ func handlePosts(w http.ResponseWriter, r *http.Request) {
 func handleGets(w http.ResponseWriter, r *http.Request) {
 	log.Debug("Received GET-Request")
 
+	ctx := r.Context()
+
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 
-	value, err := readEntry()
+	value, err := readEntry(ctx)
 
 	if err {
 		log.Debug("GET-Request failure, returning 500")
