@@ -8,28 +8,31 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-var connection *redis.Client
+type database struct {
+	connection *redis.Client
+}
 
 const keyName = "cocopasty-code-snippet"
 
-func createConnection() {
+func CreateDatabaseClient() (*database, error) {
 	setLogLevel()
 	log.Debug("Creating connection to Redis...")
-	connection = redis.NewClient(&redis.Options{
+
+	redisConnection := redis.NewClient(&redis.Options{
 		Network:  "tcp",
 		Addr:     getAddress(),
 		Password: getPassword(),
 		DB:       0,
 	})
+
+	return &database{
+		connection: redisConnection,
+	}, nil
 }
 
-func createEntry(ctx context.Context, code string) *redis.StatusCmd {
-	if connection == nil {
-		createConnection()
-	}
-
+func (d *database) CreateEntry(ctx context.Context, code string) *redis.StatusCmd {
 	log.Debug("Setting value in Redis...")
-	err := connection.Set(ctx, keyName, code, 0)
+	err := d.connection.Set(ctx, keyName, code, 0)
 	if err != nil {
 		log.Error(err)
 	}
@@ -37,13 +40,9 @@ func createEntry(ctx context.Context, code string) *redis.StatusCmd {
 	return err
 }
 
-func readEntry(ctx context.Context) (string, bool) {
-	if connection == nil {
-		createConnection()
-	}
-
+func (d *database) ReadEntry(ctx context.Context) (string, bool) {
 	log.Debug("Getting value from Redis...")
-	stringValue, err := connection.Get(ctx, keyName).Result()
+	stringValue, err := d.connection.Get(ctx, keyName).Result()
 
 	if err != nil {
 		log.Error(err)

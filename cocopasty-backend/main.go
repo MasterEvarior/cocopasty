@@ -13,6 +13,8 @@ type CodeSnippet struct {
 	Code string `json:"Code"`
 }
 
+var databaseClient *database
+
 func main() {
 	setLogLevel()
 	//Initialize router
@@ -24,9 +26,17 @@ func main() {
 
 	corsHandler := cors.Default().Handler(router)
 
+	//Create database connection
+	var err error
+	databaseClient, err = CreateDatabaseClient()
+
+	if err != nil {
+		panic(err)
+	}
+
 	//Start server
 	log.Info("Starting web server...")
-	err := http.ListenAndServe(":8080", corsHandler)
+	err = http.ListenAndServe(":8080", corsHandler)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -55,7 +65,7 @@ func handlePosts(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	createEntry(ctx, newSnippet.Code)
+	databaseClient.CreateEntry(ctx, newSnippet.Code)
 
 	log.Debug("GET-Request successfull, returning 200")
 }
@@ -68,7 +78,7 @@ func handleGets(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 
-	value, err := readEntry(ctx)
+	value, err := databaseClient.ReadEntry(ctx)
 
 	if err {
 		log.Debug("GET-Request failure, returning 500")
