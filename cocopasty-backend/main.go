@@ -33,8 +33,11 @@ func main() {
 	databaseClient, err = CreateDatabaseClient()
 
 	if err != nil {
+		log.Panic("Could not connect to database, shutting down application...")
 		panic(err)
 	}
+
+	log.Info("Connection to Redis was successfull")
 
 	//Start server
 	log.Info("Starting web server...")

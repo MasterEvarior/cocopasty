@@ -27,7 +27,7 @@ func CreateDatabaseClient() (*database, error) {
 
 	return &database{
 		connection: redisConnection,
-	}, nil
+	}, redisConnection.Ping(context.Background()).Err()
 }
 
 func (d *database) CreateEntry(ctx context.Context, code string) error {
