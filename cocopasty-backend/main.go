@@ -62,6 +62,7 @@ func handlePosts(w http.ResponseWriter, r *http.Request) {
 
 	err := json.NewDecoder(r.Body).Decode(&newSnippet)
 	if err != nil {
+		log.Error("Could not decode JSON")
 		log.Error(err)
 		w.WriteHeader(http.StatusBadRequest)
 		return
@@ -69,6 +70,7 @@ func handlePosts(w http.ResponseWriter, r *http.Request) {
 
 	err = databaseClient.CreateEntry(ctx, newSnippet.Code)
 	if err != nil {
+		log.Error("Failed to save snippet in Redis")
 		log.Error(err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
@@ -84,6 +86,7 @@ func handleGets(w http.ResponseWriter, r *http.Request) {
 	value, err := databaseClient.ReadEntry(ctx)
 
 	if err != nil {
+		log.Error("Could not retrieve snippet from Redis")
 		log.Error(err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
