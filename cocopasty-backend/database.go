@@ -31,14 +31,14 @@ func CreateDatabaseClient() (*database, error) {
 }
 
 func (d *database) CreateEntry(ctx context.Context, code string) error {
-	log.Debug("Setting value in Redis...")
+	log.Debug("Setting value in Redis")
 	status := d.connection.Set(ctx, keyName, code, 0)
 
 	return status.Err()
 }
 
 func (d *database) ReadEntry(ctx context.Context) (string, error) {
-	log.Debug("Getting value from Redis...")
+	log.Debug("Getting value from Redis")
 
 	return d.connection.Get(ctx, keyName).Result()
 }
@@ -54,6 +54,8 @@ func getPassword() string {
 	input := os.Getenv("REDIS_PASSWORD")
 	if input == "" {
 		log.Info("No Redis password was set")
+	} else {
+		log.Info("A Redis password was set")
 	}
 
 	return input
