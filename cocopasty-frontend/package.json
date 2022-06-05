@@ -13,7 +13,7 @@
     "core-js": "^3.22.8",
     "highlight.js": "^11.5.0",
     "stylus": "^0.58.1",
-    "stylus-loader": "^3.0.2",
+    "stylus-loader": "^7.0.0",
     "vue": "^3.2.36",
     "vue-prism-editor": "^2.0.0-alpha.2"
   },
