@@ -1,0 +1,22 @@
+version: 2
+updates:
+  - package-ecosystem: "gomod" # See documentation for possible values
+    directory: "/cocopasty-backend/" # Location of package manifests
+    schedule:
+      interval: "weekly"
+      day: "friday"
+  - package-ecosystem: "npm"
+    directory: "/cocopasty-frontend/"
+    schedule:
+      interval: "weeckly"
+      day: "friday"
+  - package-ecosystem: "docker"
+    directory: "/cocopasty-backend"
+    schedule:
+      interval: "weekly"
+      day: "friday"
+  - package-ecosystem: "docker"
+    directory: "/cocopasty-frontend"
+    schedule:
+      interval: "weekly"
+      day: "friday"
