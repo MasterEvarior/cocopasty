@@ -14,7 +14,7 @@
     "highlight.js": "^11.5.0",
     "stylus": "^0.57.0",
     "stylus-loader": "^3.0.2",
-    "vue": "^3.2.13",
+    "vue": "^3.2.36",
     "vue-prism-editor": "^2.0.0-alpha.2"
   },
   "devDependencies": {
