@@ -1,15 +1,16 @@
 version: 2
 updates:
-  - package-ecosystem: "gomod" # See documentation for possible values
-    directory: "/cocopasty-backend/" # Location of package manifests
+  - package-ecosystem: "gomod"
+    directory: "/cocopasty-backend/"
     schedule:
       interval: "weekly"
       day: "friday"
   - package-ecosystem: "npm"
     directory: "/cocopasty-frontend/"
     schedule:
-      interval: "weekly"
+      interval: "daily"
       day: "friday"
+    open-pull-requests-limit: 10
   - package-ecosystem: "docker"
     directory: "/cocopasty-backend"
     schedule:
