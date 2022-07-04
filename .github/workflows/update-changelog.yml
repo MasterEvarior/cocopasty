@@ -1,0 +1,22 @@
+name: 'Update dependencies section in changelog'
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }} 
+      - uses: dangoslen/dependabot-changelog-helper@v1
+        with:
+          version: 'Unreleased'
+          newVersionLineNumber: 3
+          activationLabel: 'dependabot'
+          changelogPath: './CHANGELOG.md'
+      - uses: stefanzweifel/git-auto-commit-action@v4.14.1
+        with:
+          commit_message: "Update changelog"

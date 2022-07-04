@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Stylesheet for highlight.js is now loaded locally instead from Cloudflare
 
-### Dependency Updates
+### Dependencies
 - Bump async from 2.6.3 to 2.6.4 in /cocopasty-frontend
 - Bump node from 14-alpine to 18-alpine in /cocopasty-frontend
 - Bump stylus-loader from 3.0.2 to 7.0.0 in /cocopasty-frontend
