@@ -8,10 +8,6 @@
     A simple copy-and-paste app to selfhost
   </p>
   
-  <p>
-    ⚠️ This project might still have a few bugs and things to test ⚠️ 
-  </p>
-  
   
 <!-- Badges -->
 <p>
@@ -177,11 +173,12 @@ Rename the file and run it with Docker Compose.
 ## Roadmap
 Feel free to suggest features through a GitHub issue, in addition to the ones listed below:
 - [ ] Backend tests
+- [ ] Frontend tests
 - [ ] Installation instructions for Unraid
-- [ ] Installation instructions without Docker Compose
-- [ ] Themes
 - [ ] CI/CD with GitHub-Actions
-- [ ] Reduce external dependencies
+  - [X] Automatically update Changelog for dependency updates
+  - [ ] Automatic releases
+  - [ ] Run tests
 
 <!-- Contributing -->
 ## Contributing
