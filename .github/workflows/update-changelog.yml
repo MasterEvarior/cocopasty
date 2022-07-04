@@ -15,7 +15,7 @@ jobs:
         with:
           version: 'Unreleased'
           newVersionLineNumber: 3
-          activationLabel: 'dependabot'
+          activationLabel: 'dependencies'
           changelogPath: './CHANGELOG.md'
       - uses: stefanzweifel/git-auto-commit-action@v4.14.1
         with:
