@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Dependencies
 - Bumps `eslint` from 8.18.0 to 8.19.0
+- Bumps `core-js` from 3.23.2 to 3.23.3
 
 ### Changed
 - Stylesheet for highlight.js is now loaded locally instead from Cloudflare
