@@ -20,7 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bumps `eslint-plugin-vue` from 8.5.0 to 9.1.1
 - Bumps `@vue/cli-service` from 5.0.4 to 5.0.7
 - Bumps `@vue/cli-plugin-babel` from 5.0.4 to 5.0.7
-- Bumps `@vue/cli-plugin-eslint` from 5.0.4 to 5.0.6
+- Bumps `@vue/cli-plugin-eslint` from 5.0.4 to 5.0.7
 
 ### Changed
 - Stylesheet for highlight.js is now loaded locally instead from Cloudflare
