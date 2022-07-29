@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Dependencies
-- Bumps `eslint` from 8.18.0 to 8.19.0
+- Bumps `eslint` from 8.18.0 to 8.20.0
 - Bumps `core-js` from 3.23.2 to 3.24.0
 - Bumps `async` from 2.6.3 to 2.6.4
 - Bumps `node` from 14-alpine to 18-alpine
