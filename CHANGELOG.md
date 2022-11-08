@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bumps `eslint` from 8.18.0 to 8.24.0
 - Bumps `core-js` from 3.23.2 to 3.25.3
 - Bumps `async` from 2.6.3 to 2.6.4
-- Bumps `node` from 14-alpine to 18-alpine
+- Bumps `node` from 14-alpine to 19-alpine
 - Bumps `stylus-loader` from 3.0.2 to 7.0.0
 - Bumps `stylus` from 0.57.0 to 0.59.0
 - Bumps `vue` from 3.2.31 to 3.2.39
