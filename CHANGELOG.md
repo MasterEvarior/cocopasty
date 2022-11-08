@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bumps `node` from 14-alpine to 19-alpine
 - Bumps `stylus-loader` from 3.0.2 to 7.0.0
 - Bumps `stylus` from 0.57.0 to 0.59.0
-- Bumps `vue` from 3.2.31 to 3.2.39
+- Bumps `vue` from 3.2.31 to 3.2.41
 - Bumps `highlight.js` from 11.5.0 to 11.5.1
 - Bumps `@babel/core` from 7.17.8 to 7.20.2
 - Bumps `sass-loader` from 12.6.0 to 13.1.0
