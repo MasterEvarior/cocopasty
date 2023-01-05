@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bumps `terser` from 5.12.1 to 5.14.2
 - Bumps `node-sass` from 7.0.1 to 7.0.3
 - Bumps `loader-utils` from 1.4.0 to 1.4.1
+- Bumps `decode-uri-component` from 0.2.0 to 0.2.2
 
 ### Changed
 - Stylesheet for highlight.js is now loaded locally instead from Cloudflare
