@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bumps `stylus` from 0.57.0 to 0.59.0
 - Bumps `vue` from 3.2.31 to 3.2.41
 - Bumps `highlight.js` from 11.5.0 to 11.5.1
-- Bumps `@babel/core` from 7.17.8 to 7.20.2
+- Bumps `@babel/core` from 7.17.8 to 7.20.12
 - Bumps `sass-loader` from 12.6.0 to 13.1.0
 - Bumps `@babel/eslint-parser` from 7.17.0 to 7.19.1
 - Bumps `eslint-plugin-vue` from 8.5.0 to 9.5.1
