@@ -22,4 +22,8 @@ pnpm-debug.log*
 *.sln
 *.sw?
 
+# Direnv
 .direnv
+
+# Backend
+value

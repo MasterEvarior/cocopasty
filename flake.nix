@@ -37,8 +37,9 @@
         '';
 
         # Environment Variables
-        COCOPASTY_DATA_LOCATION = "./data";
+        COCOPASTY_DATA_LOCATION = "./value";
         COCOPASTY_PERSIST_TO_DISK = "true";
+        COCOPASTY_PORT = ":8080";
       };
     };
 }

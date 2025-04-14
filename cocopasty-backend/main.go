@@ -2,11 +2,8 @@ package main
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
-
-	"github.com/gorilla/mux"
-	"github.com/rs/cors"
-	log "github.com/sirupsen/logrus"
 )
 
 type CodeSnippet struct {
@@ -14,32 +11,45 @@ type CodeSnippet struct {
 }
 
 func main() {
-	setLogLevel()
-	//Initialize router
-	log.Info("Starting Cocopasty...")
-	router := mux.NewRouter()
+	log.Print("Starting Cocopasty...")
+	port := GetEnvVarWithDefault("COCOPASTY_PORT", ":8080")
 
-	router.Use(LoggingMiddleware)
+	http.HandleFunc("/", handle)
+	http.HandleFunc("/health", handleHealth)
 
-	router.HandleFunc("/", handleGets).Methods("GET")
-	router.HandleFunc("/", handlePosts).Methods("POST")
-
-	corsHandler := cors.Default().Handler(router)
-
-	//Start server
-	log.Info("Starting web server...")
-	err := http.ListenAndServe(":8080", corsHandler)
+	log.Print("Starting web server...")
+	err := http.ListenAndServe(port, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Info("Cocopasty is started and ready!")
+}
+
+func handle(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case http.MethodGet:
+		handleGets(w, r)
+	case http.MethodPost:
+		handlePosts(w, r)
+	default:
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+	}
+}
+
+func handleHealth(w http.ResponseWriter, _ *http.Request) {
+	w.Header().Set("Content-Length", "0")
+	w.WriteHeader(http.StatusNoContent)
+	_, err := w.Write(nil)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 }
 
 func handlePosts(w http.ResponseWriter, r *http.Request) {
 
 	contentType := r.Header.Get("Content-Type")
 	if contentType != "application/json" {
-		log.Debug("Invalid content type, returning 400")
+		log.Print("Invalid content type, returning 400")
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -48,31 +58,31 @@ func handlePosts(w http.ResponseWriter, r *http.Request) {
 
 	err := json.NewDecoder(r.Body).Decode(&newSnippet)
 	if err != nil {
-		log.Errorf("Could not decode JSON: %v", err)
+		log.Printf("Could not decode JSON: %v", err)
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
 
 	err = Persist(newSnippet.Code)
 	if err != nil {
-		log.Errorf("Failed to save snippet in Redis: %v", err)
+		log.Printf("Failed to save snippet in Redis: %v", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 }
 
-func handleGets(w http.ResponseWriter, r *http.Request) {
+func handleGets(w http.ResponseWriter, _ *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 
 	value, err := Retrieve()
 
 	if err != nil {
-		log.Error("Could not retrieve snippet from Redis: ", err)
+		log.Printf("Could not retrieve snippet: %v", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 
-	log.Debug("GET-Request successfull, returning 200")
+	log.Print("GET-Request successfull, returning 200")
 	json.NewEncoder(w).Encode(CodeSnippet{value})
 }

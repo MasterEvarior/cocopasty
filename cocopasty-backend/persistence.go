@@ -2,7 +2,6 @@ package main
 
 import (
 	"os"
-	"strings"
 )
 
 var inMemoryStorage string = ""
@@ -25,27 +24,18 @@ func Retrieve() (string, error) {
 		return inMemoryStorage, nil
 	}
 
-	return "", nil
-}
-
-func location() string {
-	val, set := os.LookupEnv("COCOPASTY_DATA_LOCATION")
-	if !set {
-		return "/data/value"
+	b, err := os.ReadFile(location())
+	if err != nil {
+		return "", err
 	}
-	return val + "/value"
+
+	return string(b), nil
 }
 
 func toDisk() bool {
-	val, set := os.LookupEnv("COCOPASTY_PERSIST_TO_DISK")
-	if !set {
-		return false
-	}
+	return IsEnabled("COCOPASTY_PERSIST_TO_DISK")
+}
 
-	val = strings.ToLower(val)
-	if val == "false" || val == "0" || val == "true" {
-		return false
-	}
-
-	return true
+func location() string {
+	return GetEnvVarWithDefault("COCOPASTY_DATA_LOCATION", "/data/value")
 }
