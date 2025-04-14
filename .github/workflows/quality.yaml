@@ -1,0 +1,66 @@
+name: 'Quality Check'
+on:
+  push:
+  pull_request:
+    types: [opened, reopened, edited]
+  workflow_call:
+jobs:
+  treefmt-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v31
+      - name: Install deadnix
+        uses: cachix/cachix-action@v16
+        with:
+          name: deadnix
+      - name: Install Nix formatter
+        run: 'nix-env -f https://github.com/NixOS/nixfmt/archive/master.tar.gz -i'
+        shell: bash
+      - name: Install yamlfmt
+        run: go install github.com/google/yamlfmt/cmd/yamlfmt@latest
+      - uses: actions/setup-python@v5
+      - uses: CfirTsabari/actions-pipx@v1
+      - name: Install mdformat
+        run: pipx install mdformat==0.7.18
+      - name: Install beautysh
+        run: pipx install beautysh
+      - name: Run treefmt
+        uses: isbecker/treefmt-action@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          version: 'latest'
+          ci: true
+          allow_missing_formatter: true
+          no_cache: true
+  golang-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v7
+        with:
+          working-directory: cocopasty-backend
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: 'go.mod'
+      - name: Run Tests
+        run: go test .
+  test-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: 'go.mod'
+      - name: Install dependencies
+        run: go get .
+      - name: Build
+        run: go build -v .

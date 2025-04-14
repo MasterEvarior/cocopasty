@@ -1,0 +1,44 @@
+[formatter.mdformat]
+command = "mdformat"
+options = []
+excludes = []
+includes = ["*.md"]
+
+[formatter.beautysh]
+command = "beautysh"
+options = ["-i","2"]
+excludes = []
+includes = ["*.sh", "pre-commit"]
+
+[formatter.deadnix]
+command = "deadnix"
+options = ["--edit"]
+excludes = []
+includes = ["*.nix"]
+
+[formatter.nixfmt-rfc-style]
+command = "nixfmt"
+options = []
+excludes = []
+includes = ["*.nix"]
+
+[formatter.yamlfmt]
+command = "yamlfmt"
+options = []
+excludes = []
+includes = ["*.yml","*.yaml"]
+
+[formatter.jsonfmt]
+command = "jsonfmt"
+options = ["-w"]
+excludes = []
+includes = ["*.json","*.jsonc"]
+
+[formatter.hadolint]
+command = "hadolint"
+options = []
+excludes = []
+includes = ["*Dockerfile*"]
+
+[global]
+excludes = ["*.png","*.jpg","*.jpeg", "LICENSE", "*.go", "go.mod", "go.sum", "Dockerfile"]

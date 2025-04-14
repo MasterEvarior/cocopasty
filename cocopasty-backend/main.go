@@ -48,14 +48,14 @@ func handlePosts(w http.ResponseWriter, r *http.Request) {
 
 	err := json.NewDecoder(r.Body).Decode(&newSnippet)
 	if err != nil {
-		log.Errorf("Could not decode JSON: ", err)
+		log.Errorf("Could not decode JSON: %v", err)
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
 
 	err = Persist(newSnippet.Code)
 	if err != nil {
-		log.Errorf("Failed to save snippet in Redis: ", err)
+		log.Errorf("Failed to save snippet in Redis: %v", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
