@@ -13,8 +13,6 @@ type CodeSnippet struct {
 	Code string `json:"Code"`
 }
 
-var databaseClient *database
-
 func main() {
 	setLogLevel()
 	//Initialize router
@@ -28,20 +26,9 @@ func main() {
 
 	corsHandler := cors.Default().Handler(router)
 
-	//Create database connection
-	var err error
-	databaseClient, err = CreateDatabaseClient()
-
-	if err != nil {
-		log.Panic("Could not connect to database, shutting down application...")
-		panic(err)
-	}
-
-	log.Info("Connection to Redis was successfull")
-
 	//Start server
 	log.Info("Starting web server...")
-	err = http.ListenAndServe(":8080", corsHandler)
+	err := http.ListenAndServe(":8080", corsHandler)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -49,7 +36,6 @@ func main() {
 }
 
 func handlePosts(w http.ResponseWriter, r *http.Request) {
-	ctx := r.Context()
 
 	contentType := r.Header.Get("Content-Type")
 	if contentType != "application/json" {
@@ -67,7 +53,7 @@ func handlePosts(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = databaseClient.CreateEntry(ctx, newSnippet.Code)
+	err = Persist(newSnippet.Code)
 	if err != nil {
 		log.Errorf("Failed to save snippet in Redis: ", err)
 		w.WriteHeader(http.StatusInternalServerError)
@@ -76,12 +62,10 @@ func handlePosts(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleGets(w http.ResponseWriter, r *http.Request) {
-	ctx := r.Context()
-
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 
-	value, err := databaseClient.ReadEntry(ctx)
+	value, err := Retrieve()
 
 	if err != nil {
 		log.Error("Could not retrieve snippet from Redis: ", err)
