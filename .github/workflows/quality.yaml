@@ -38,10 +38,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
+        with:
+          go-version-file: 'backend/go.mod'
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v7
         with:
-          working-directory: cocopasty-backend
+          working-directory: backend
   test:
     runs-on: ubuntu-latest
     steps:
@@ -49,9 +51,10 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
-          go-version-file: 'go.mod'
+          go-version-file: 'backend/go.mod'
       - name: Run Tests
         run: go test .
+        working-directory: backend
   test-build:
     runs-on: ubuntu-latest
     steps:
@@ -59,8 +62,10 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
-          go-version-file: 'go.mod'
+          go-version-file: 'backend/go.mod'
       - name: Install dependencies
         run: go get .
+        working-directory: backend
       - name: Build
         run: go build -v .
+        working-directory: backend
